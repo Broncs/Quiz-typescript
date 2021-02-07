@@ -68,3 +68,59 @@ export const Wrapper = styled.div`
     max-width: 200px;
   }
 `;
+
+export const LabelWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 350px;
+  color: white;
+
+  label {
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+      color: #ffcc91;
+    }
+  }
+
+  input {
+    position: absolute;
+    visibility: hidden;
+  }
+  .check {
+    display: block;
+    position: absolute;
+    border: 2px solid #aaaaaa;
+    border-radius: 100%;
+    height: 20px;
+    width: 20px;
+    top: 3px;
+    right: -25px;
+    z-index: 5;
+    transition: border 0.25s linear;
+    -webkit-transition: border 0.25s linear;
+  }
+
+  .check::before {
+    content: '';
+    display: block;
+    position: absolute;
+
+    border-radius: 100%;
+    height: 8px;
+    width: 8px;
+    top: 2px;
+    left: 2px;
+    margin: auto;
+  }
+
+  input[type='radio']:checked ~ .check {
+    border: 4px solid #ffcc91;
+  }
+
+  input[type='radio']:checked ~ .check::before {
+    background: #ffe4c4;
+  }
+`;

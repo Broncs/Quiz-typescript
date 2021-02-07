@@ -5,7 +5,7 @@ import QuestionCard from './components/QuestionsCard';
 // types
 import { QuestionState, Difficulty } from './API';
 
-import { GlobalStyle, Wrapper } from './App.styles';
+import { GlobalStyle, Wrapper, LabelWrapper } from './App.styles';
 
 export type AnswerObject = {
   question: string;
@@ -94,37 +94,47 @@ function App() {
 
         {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
           <>
-            <label htmlFor="easy">
-              EASY
-              <input
-                id="easy"
-                type="radio"
-                checked={difficulty === 'EASY'}
-                value="EASY"
-                onChange={(e) => difficultySelected(e)}
-              />
-            </label>
-            <label htmlFor="medium">
-              MEDIUM
-              <input
-                id="medium"
-                type="radio"
-                checked={difficulty === 'MEDIUM'}
-                value="MEDIUM"
-                onChange={(e) => difficultySelected(e)}
-              />
-            </label>
-            <label htmlFor="hard">
-              HARD
-              <input
-                id="hard"
-                type="radio"
-                checked={difficulty === 'HARD'}
-                value="HARD"
-                onChange={(e) => difficultySelected(e)}
-              />
-            </label>
-
+            <LabelWrapper>
+              <div>
+                <label className="labelItem" htmlFor="easy">
+                  EASY
+                  <input
+                    id="easy"
+                    type="radio"
+                    checked={difficulty === 'EASY'}
+                    value="EASY"
+                    onChange={(e) => difficultySelected(e)}
+                  />
+                  <div className="check"></div>
+                </label>
+              </div>
+              <div>
+                <label className="labelItem" htmlFor="medium">
+                  MEDIUM
+                  <input
+                    id="medium"
+                    type="radio"
+                    checked={difficulty === 'MEDIUM'}
+                    value="MEDIUM"
+                    onChange={(e) => difficultySelected(e)}
+                  />
+                  <div className="check"></div>
+                </label>
+              </div>
+              <div>
+                <label className="labelItem" htmlFor="hard">
+                  HARD
+                  <input
+                    id="hard"
+                    type="radio"
+                    checked={difficulty === 'HARD'}
+                    value="HARD"
+                    onChange={(e) => difficultySelected(e)}
+                  />
+                  <div className="check"></div>
+                </label>
+              </div>
+            </LabelWrapper>
             <button className="start" onClick={startQuiz}>
               Start
             </button>
