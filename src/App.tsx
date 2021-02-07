@@ -24,20 +24,42 @@ function App() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
 
+  const [difficulty, setDifficulty] = useState('EASY');
+
   const startQuiz = async () => {
     setLoading(true);
     setGameOver(false);
-    const newQuestions = await fetchQuizQuestions(
-      TOTAL_QUESTIONS,
-      Difficulty.EASY
-    );
 
-    setQuestions(newQuestions);
+    if (difficulty === 'EASY') {
+      const newQuestions = await fetchQuizQuestions(
+        TOTAL_QUESTIONS,
+        Difficulty.EASY
+      );
+      setQuestions(newQuestions);
+    } else if (difficulty === 'MEDIUM') {
+      const newQuestions = await fetchQuizQuestions(
+        TOTAL_QUESTIONS,
+        Difficulty.MEDIUM
+      );
+      setQuestions(newQuestions);
+    } else if (difficulty === 'HARD') {
+      const newQuestions = await fetchQuizQuestions(
+        TOTAL_QUESTIONS,
+        Difficulty.HARD
+      );
+      setQuestions(newQuestions);
+    }
+
     setScore(0);
     setUserAnswers([]);
     setNumber(0);
     setLoading(false);
   };
+
+  const difficultySelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDifficulty(e.target.value);
+  };
+
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!gameOver) {
       //user answer
@@ -69,10 +91,44 @@ function App() {
       <GlobalStyle />
       <Wrapper>
         <h1>QUIZ</h1>
+
         {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-          <button className="start" onClick={startQuiz}>
-            Start
-          </button>
+          <>
+            <label htmlFor="easy">
+              EASY
+              <input
+                id="easy"
+                type="radio"
+                checked={difficulty === 'EASY'}
+                value="EASY"
+                onChange={(e) => difficultySelected(e)}
+              />
+            </label>
+            <label htmlFor="medium">
+              MEDIUM
+              <input
+                id="medium"
+                type="radio"
+                checked={difficulty === 'MEDIUM'}
+                value="MEDIUM"
+                onChange={(e) => difficultySelected(e)}
+              />
+            </label>
+            <label htmlFor="hard">
+              HARD
+              <input
+                id="hard"
+                type="radio"
+                checked={difficulty === 'HARD'}
+                value="HARD"
+                onChange={(e) => difficultySelected(e)}
+              />
+            </label>
+
+            <button className="start" onClick={startQuiz}>
+              Start
+            </button>
+          </>
         ) : null}
         {!gameOver ? <p className="score">Score: {score}</p> : null}
         {loading && <p>Loading Questions ...</p>}
